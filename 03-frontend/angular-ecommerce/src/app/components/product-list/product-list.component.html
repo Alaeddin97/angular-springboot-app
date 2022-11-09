@@ -1,0 +1,8 @@
+<div class="container">
+  <div>
+    <div *ngFor="let product of loadedProducts">
+      <img [src]="product.imageUrl" alt="" />
+      <li>{{ product.name }}:{{ product.unitPrice | currency: "USD" }}</li>
+    </div>
+  </div>
+</div>

@@ -62,6 +62,9 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "port":3001
+          },
           "configurations": {
             "production": {
               "browserTarget": "angular-ecommerce:build:production"
@@ -97,5 +100,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "0f05f1bc-e553-49c8-8d5a-880821e54c40"
   }
 }
