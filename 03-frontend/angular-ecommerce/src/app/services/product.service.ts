@@ -11,7 +11,7 @@ export class ProductService {
 
   fetchPorducts(){
     return this.http
-      .get<GetResponse>('http://localhost:8070/api/products')
+      .get<GetResponse>('http://localhost:8070/api/products?size=100')
       .pipe(map((response) => response._embedded.Product));
   }
 }
