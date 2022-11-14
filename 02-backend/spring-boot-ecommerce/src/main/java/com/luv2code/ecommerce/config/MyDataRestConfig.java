@@ -7,8 +7,11 @@ import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+
+import java.util.Comparator;
+
 @Configuration
-public class MyDataRestConfig implements RepositoryRestConfigurer {
+public class MyDataRestConfig implements RepositoryRestConfigurer{
     @Override
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config, CorsRegistry cors) {
         HttpMethod[]notAllowedActions={HttpMethod.DELETE,HttpMethod.PUT,HttpMethod.POST};
@@ -22,5 +25,6 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
                 .withItemExposure(((metdata, httpMethods) -> httpMethods.disable(notAllowedActions)))
                 .withCollectionExposure(((metdata, httpMethods) -> httpMethods.disable(notAllowedActions)));
     }
+
 
 }
