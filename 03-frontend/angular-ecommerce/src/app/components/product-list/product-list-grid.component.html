@@ -2,8 +2,8 @@
   <div class="section-content section-content-p30">
     <div class="container-fluid">
       <div class="row" *ngIf="!noProductFound">
-        <div *ngFor="let product of loadedProducts" class="col-md-3">
-          <div class="product-box">
+        <div *ngFor="let product of loadedProducts;let index=index" class="col-md-3">
+          <div class="product-box" (click)="onDetails(index)">
             <img src="{{product.imageUrl}}" class="img-responsive">
             <h1>{{product.name}}</h1>
             <div class="price">{{product.unitPrice | currency:'USD'}}</div>

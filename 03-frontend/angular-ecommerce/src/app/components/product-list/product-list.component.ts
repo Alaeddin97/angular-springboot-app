@@ -17,13 +17,17 @@ export class ProductListComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router:Router
   ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
       this.name = params['name'];
       this.id = +params['id'];
+      console.log(this.name);
+      
+
       if (this.name) {
         this.productService
           .findProductByName(this.name)
@@ -60,7 +64,11 @@ export class ProductListComponent implements OnInit {
       console.log(res);
     });
   }
+
+  onDetails(index:number){
+    console.log(`Index: ${index}`);
+    
+    this.router.navigate(['products',index+1,'details']);
+  }
 }
-function lowerCase(id: number) {
-  throw new Error('Function not implemented.');
-}
+

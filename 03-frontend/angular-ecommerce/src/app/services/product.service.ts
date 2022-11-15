@@ -8,8 +8,6 @@ import { ProductCategory } from '../common/ProductCategory';
   providedIn: 'root',
 })
 export class ProductService {
-
-  products:Subject<Product[]>=new EventEmitter<Product[]>();
   constructor(private http: HttpClient) {}
 
   fetchPorducts() {
@@ -36,11 +34,22 @@ export class ProductService {
       );
   }
 
-  findProductByName(productName:string){
-    const url='http://localhost:8070/api/products/search/findByName?name=' + productName;
+  findProductByName(productName: string) {
+    const url =
+      'http://localhost:8070/api/products/search/findByName?name=' +
+      productName;
     return this.http
-    .get<GetResponse>(url)
-    .pipe(map((response) => response._embedded.Product));
+      .get<GetResponse>(url)
+      .pipe(map((response) => response._embedded.Product));
+  }
+
+  findProductById(productId: number) {
+    const url =
+      'http://localhost:8070/api/products/search/findById?id=' + productId;
+    return this.http.get<GetResponse>(url).pipe(
+      map((resp)=>resp._embedded.Product[0]
+      )
+    );
   }
 }
 

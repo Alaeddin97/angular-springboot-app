@@ -11,6 +11,7 @@ import { ProductDetailsComponent } from './components/product-details/product-de
 
 
 const appRoutes:Routes=[
+  {path:"products/:id/details",component:ProductDetailsComponent},
   {path:"products/:name",component:ProductListComponent},
   {path:"category/:id",component:ProductListComponent},
   {path:"category",component:ProductListComponent},
