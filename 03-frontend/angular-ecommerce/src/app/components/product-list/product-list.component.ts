@@ -12,18 +12,34 @@ import { ProductService } from 'src/app/services/product.service';
 export class ProductListComponent implements OnInit {
   loadedProducts: Product[] = [];
   id: number = 0;
+  name: string = '';
+  noProductFound: boolean = false;
 
   constructor(
     private productService: ProductService,
-    private route: ActivatedRoute,
-    private router: Router
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
+      this.name = params['name'];
       this.id = +params['id'];
-      console.log(this.id);
-      if (this.id === 1 || this.id === 2 || this.id === 3 || this.id === 4) {
+      if (this.name) {
+        this.productService
+          .findProductByName(this.name)
+          .subscribe((products: Product[]) => {
+            products.length > 0
+              ? (this.loadedProducts = products)
+              : (this.noProductFound = true);
+              console.log(this.noProductFound);
+              
+          });
+      } else if (
+        this.id === 1 ||
+        this.id === 2 ||
+        this.id === 3 ||
+        this.id === 4
+      ) {
         this.findByCategoryId(this.id);
       } else {
         this.fetchProducts();
@@ -44,4 +60,7 @@ export class ProductListComponent implements OnInit {
       console.log(res);
     });
   }
+}
+function lowerCase(id: number) {
+  throw new Error('Function not implemented.');
 }

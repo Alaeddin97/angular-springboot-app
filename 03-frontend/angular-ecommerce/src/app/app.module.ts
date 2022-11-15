@@ -5,9 +5,13 @@ import {HttpClientModule} from '@angular/common/http'
 import { AppComponent } from './app.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { RouterModule, Routes } from '@angular/router';
+import { SearchComponent } from './components/search/search.component';
+import { FormsModule } from '@angular/forms';
+import { ProductDetailsComponent } from './components/product-details/product-details.component';
 
 
 const appRoutes:Routes=[
+  {path:"products/:name",component:ProductListComponent},
   {path:"category/:id",component:ProductListComponent},
   {path:"category",component:ProductListComponent},
   {path:"products",component:ProductListComponent},
@@ -18,9 +22,12 @@ const appRoutes:Routes=[
 @NgModule({
   declarations: [
     AppComponent,
-    ProductListComponent
+    ProductListComponent,
+    SearchComponent,
+    ProductDetailsComponent
   ],
   imports: [
+    FormsModule,
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes)

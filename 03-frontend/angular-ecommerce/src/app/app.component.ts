@@ -15,8 +15,8 @@ export class AppComponent implements OnInit {
  
   ngOnInit(): void {
     this.productService.fetchCategories().subscribe(
-      (data)=>{
-        this.categories=data;
+      (categories:ProductCategory[])=>{
+        this.categories=categories;
       }
     )
   }
@@ -24,19 +24,19 @@ export class AppComponent implements OnInit {
 
   onCategory(category:string){
     switch(category){
-      case 'Books':{
+      case this.categories[0].categoryName:{
         this.router.navigate(['/category',1]);
         break;
       }
-      case 'Coffee Mugs':{
+      case this.categories[1].categoryName:{
         this.router.navigate(['/category',2]);
         break;
       }
-      case 'Mouse Pads':{
+      case this.categories[2].categoryName:{
         this.router.navigate(['/category',3]);
         break;
       }
-      case 'Luggage Tags':{
+      case this.categories[3].categoryName:{
         this.router.navigate(['/category',4]);
         break;
       }
