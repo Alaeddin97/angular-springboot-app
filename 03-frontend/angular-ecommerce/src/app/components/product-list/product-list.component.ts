@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { CartItem } from 'src/app/common/cart-item';
 import { Product } from 'src/app/common/product';
+import { CartService } from 'src/app/services/cart.service';
 import {
-  GetResponseProducts,
   ProductService,
 } from 'src/app/services/product.service';
 
@@ -25,7 +26,8 @@ export class ProductListComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private cartService: CartService
   ) {}
 
   ngOnInit(): void {
@@ -40,7 +42,7 @@ export class ProductListComponent implements OnInit {
       if (this.categoryId) {
         this.findByCategoryIdPaginate();
       }
-      if(!this.categoryId&&!this.productName){
+      if (!this.categoryId && !this.productName) {
         this.productListPaginate();
       }
     });
@@ -107,22 +109,29 @@ export class ProductListComponent implements OnInit {
   updateSize(size: string) {
     this.thePageSize = +size;
     this.thePageNumber = 1;
-    this.categoryId !== 1 &&
-    this.categoryId !== 2 &&
-    this.categoryId !== 3 &&
-    this.categoryId !== 4
-      ? this.productListPaginate()
-      : this.findByCategoryIdPaginate();
+
+    if (this.productName) {
+      this.findProductByNamePaginate();
+    } else if (this.categoryId) {
+      this.findByCategoryIdPaginate();
+    } else {
+      this.productListPaginate();
+    }
   }
 
   pageChange() {
     if (this.productName) {
       this.findProductByNamePaginate();
-    }
-    else if (this.categoryId) {
+    } else if (this.categoryId) {
       this.findByCategoryIdPaginate();
     } else {
       this.productListPaginate();
     }
+  }
+
+  addItem(product: Product) {
+console.log('HERE');
+    
+    this.cartService.cartUpdate(new CartItem(product));
   }
 }

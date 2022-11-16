@@ -8,6 +8,9 @@ import { ProductCategory } from '../common/ProductCategory';
   providedIn: 'root',
 })
 export class ProductService {
+
+  
+
   constructor(private http: HttpClient) {}
 
   fetchPorducts() {
@@ -71,7 +74,10 @@ export class ProductService {
     return this.http
       .get<GetResponseProducts>(url)
   }
+
+
 }
+
 
 export interface GetResponseProducts {
   _embedded: {

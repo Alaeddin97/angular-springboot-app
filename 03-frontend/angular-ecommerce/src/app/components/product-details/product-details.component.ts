@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { CartItem } from 'src/app/common/cart-item';
 import { Product } from 'src/app/common/product';
+import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
@@ -13,13 +15,13 @@ export class ProductDetailsComponent implements OnInit {
   product!: Product;
   constructor(
     private productService: ProductService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private cartService:CartService
   ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
       this.productId = params['id'];
-      console.log(this.productId);
       
       if (this.productId) {
         this.productService
@@ -29,5 +31,9 @@ export class ProductDetailsComponent implements OnInit {
           });
       }
     });
+  }
+
+  addItem(){
+    this.cartService.cartUpdate(new CartItem(this.product));
   }
 }
