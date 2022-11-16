@@ -63,6 +63,14 @@ export class ProductService {
     return this.http
       .get<GetResponseProducts>(url)
   }
+
+  findPorductByNamePaginate(productName:string,thePageNumber:number,thePageSize:number){
+    const url =
+      'http://localhost:8070/api/products/search/findByName?name=' +
+      productName +`&page=${thePageNumber}&size=${thePageSize}`;
+    return this.http
+      .get<GetResponseProducts>(url)
+  }
 }
 
 export interface GetResponseProducts {

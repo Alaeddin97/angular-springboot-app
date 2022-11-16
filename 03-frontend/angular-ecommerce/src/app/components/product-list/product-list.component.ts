@@ -14,8 +14,8 @@ import {
 })
 export class ProductListComponent implements OnInit {
   loadedProducts: Product[] = [];
-  categoryId: number = 0;
-  name: string = '';
+  categoryId!: number;
+  productName!: string;
   noProductFound: boolean = false;
 
   thePageNumber: number = 1;
@@ -30,44 +30,30 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
-      this.name = params['name'];
+      this.productName = params['name'];
       this.categoryId = +params['id'];
-      this.thePageNumber=1;
+      this.thePageNumber = 1;
 
-      if (this.name) {
-        this.productService
-          .findProductByName(this.name)
-          .subscribe((products: Product[]) => {
-            if (products.length > 0) {
-              this.loadedProducts = products;
-              this.noProductFound = false;
-            } else {
-              this.noProductFound = true;
-              console.log(this.noProductFound);
-            }
-          });
-      } else if (
-        this.categoryId === 1 ||
-        this.categoryId === 2 ||
-        this.categoryId === 3 ||
-        this.categoryId === 4
-      ) {
-        this.findByCategoryId();
-      } else {
-        // this.fetchProducts();
-        this.productListPaginated();
+      if (this.productName) {
+        this.findProductByNamePaginate();
+      }
+      if (this.categoryId) {
+        this.findByCategoryIdPaginate();
+      }
+      if(!this.categoryId&&!this.productName){
+        this.productListPaginate();
       }
     });
   }
 
-  fetchProducts() {
-    this.productService.fetchPorducts().subscribe((res) => {
-      this.loadedProducts = res;
-      console.log(res);
-    });
-  }
+  // fetchProducts() {
+  //   this.productService.fetchPorducts().subscribe((res) => {
+  //     this.loadedProducts = res;
+  //     console.log(res);
+  //   });
+  // }
 
-  findByCategoryId() {
+  findByCategoryIdPaginate() {
     // this.productService.findByCategoryId(id).subscribe((res) => {
     //   this.loadedProducts = res;
     //   console.log(res);
@@ -84,8 +70,6 @@ export class ProductListComponent implements OnInit {
         this.thePageNumber = products.page.number + 1;
         this.thePageSize = products.page.size;
         this.theTotalElements = products.page.totalElements;
-        console.log(this.loadedProducts);
-        console.log(this.thePageNumber);
       });
   }
 
@@ -94,7 +78,7 @@ export class ProductListComponent implements OnInit {
     this.router.navigate(['products', index + 1, 'details']);
   }
 
-  productListPaginated() {
+  productListPaginate() {
     this.productService
       .getProductListPaginate(this.thePageNumber - 1, this.thePageSize)
       .subscribe((products) => {
@@ -102,19 +86,43 @@ export class ProductListComponent implements OnInit {
         this.thePageNumber = products.page.number + 1;
         this.thePageSize = products.page.size;
         this.theTotalElements = products.page.totalElements;
-        console.log(this.loadedProducts);
-        console.log(this.thePageNumber);
       });
   }
 
-  updateSize(size:string){
-    this.thePageSize=+size;
-    this.thePageNumber=1;
+  findProductByNamePaginate() {
+    this.productService
+      .findPorductByNamePaginate(
+        this.productName,
+        this.thePageNumber - 1,
+        this.thePageSize
+      )
+      .subscribe((products) => {
+        this.loadedProducts = products._embedded.Product;
+        this.thePageNumber = products.page.number + 1;
+        this.thePageSize = products.page.size;
+        this.theTotalElements = products.page.totalElements;
+      });
+  }
+
+  updateSize(size: string) {
+    this.thePageSize = +size;
+    this.thePageNumber = 1;
     this.categoryId !== 1 &&
     this.categoryId !== 2 &&
     this.categoryId !== 3 &&
     this.categoryId !== 4
-      ? this.productListPaginated()
-      : this.findByCategoryId()
+      ? this.productListPaginate()
+      : this.findByCategoryIdPaginate();
+  }
+
+  pageChange() {
+    if (this.productName) {
+      this.findProductByNamePaginate();
+    }
+    else if (this.categoryId) {
+      this.findByCategoryIdPaginate();
+    } else {
+      this.productListPaginate();
+    }
   }
 }

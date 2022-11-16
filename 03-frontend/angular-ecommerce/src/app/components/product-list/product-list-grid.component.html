@@ -23,28 +23,50 @@
       </div>
       <div class="footer-pagination">
         <div class="row">
-          <div class="col-md-11" style="padding-left: 30%;display:flex;justify-content: space-around;align-items: baseline;">
+          <div
+            class="col-md-11"
+            style="
+              padding-left: 30%;
+              display: flex;
+              justify-content: space-around;
+              align-items: baseline;
+            "
+          >
             <ngb-pagination
               [(page)]="thePageNumber"
               [pageSize]="thePageSize"
               [collectionSize]="theTotalElements"
               [maxSize]="5"
               [boundaryLinks]="true"
-              (pageChange)="
-                categoryId !== 1 &&
-                categoryId !== 2 &&
-                categoryId !== 3 &&
-                categoryId !== 4
-                  ? productListPaginated()
-                  : findByCategoryId()
-              "
+              (pageChange)="pageChange()"
             ></ngb-pagination>
-            <span>Page size: 
+            <span
+              >Page size:
               <select #pageSize (change)="updateSize(pageSize.value)">
-                <option #optionOne [selected]="thePageSize===+optionOne.value">5</option>
-                <option #optionTwo [selected]="thePageSize===+optionTwo.value">10</option>
-                <option #optionThree [selected]="thePageSize===+optionThree.value">20</option>
-                <option #optionFour [selected]="thePageSize===+optionFour.value">50</option>
+                <option
+                  #optionOne
+                  [selected]="thePageSize === +optionOne.value"
+                >
+                  5
+                </option>
+                <option
+                  #optionTwo
+                  [selected]="thePageSize === +optionTwo.value"
+                >
+                  10
+                </option>
+                <option
+                  #optionThree
+                  [selected]="thePageSize === +optionThree.value"
+                >
+                  20
+                </option>
+                <option
+                  #optionFour
+                  [selected]="thePageSize === +optionFour.value"
+                >
+                  50
+                </option>
               </select>
             </span>
           </div>
