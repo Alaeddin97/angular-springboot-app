@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Product } from 'src/app/common/product';
-import { ProductService } from 'src/app/services/product.service';
+import {
+  GetResponseProducts,
+  ProductService,
+} from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-product-list',
@@ -11,42 +14,48 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class ProductListComponent implements OnInit {
   loadedProducts: Product[] = [];
-  id: number = 0;
+  categoryId: number = 0;
   name: string = '';
   noProductFound: boolean = false;
+
+  thePageNumber: number = 1;
+  thePageSize: number = 10;
+  theTotalElements: number = 0;
 
   constructor(
     private productService: ProductService,
     private route: ActivatedRoute,
-    private router:Router
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
       this.name = params['name'];
-      this.id = +params['id'];
-      console.log(this.name);
-      
+      this.categoryId = +params['id'];
+      this.thePageNumber=1;
 
       if (this.name) {
         this.productService
           .findProductByName(this.name)
           .subscribe((products: Product[]) => {
-            products.length > 0
-              ? (this.loadedProducts = products)
-              : (this.noProductFound = true);
+            if (products.length > 0) {
+              this.loadedProducts = products;
+              this.noProductFound = false;
+            } else {
+              this.noProductFound = true;
               console.log(this.noProductFound);
-              
+            }
           });
       } else if (
-        this.id === 1 ||
-        this.id === 2 ||
-        this.id === 3 ||
-        this.id === 4
+        this.categoryId === 1 ||
+        this.categoryId === 2 ||
+        this.categoryId === 3 ||
+        this.categoryId === 4
       ) {
-        this.findByCategoryId(this.id);
+        this.findByCategoryId();
       } else {
-        this.fetchProducts();
+        // this.fetchProducts();
+        this.productListPaginated();
       }
     });
   }
@@ -58,17 +67,54 @@ export class ProductListComponent implements OnInit {
     });
   }
 
-  findByCategoryId(id: number) {
-    this.productService.findByCategoryId(id).subscribe((res) => {
-      this.loadedProducts = res;
-      console.log(res);
-    });
+  findByCategoryId() {
+    // this.productService.findByCategoryId(id).subscribe((res) => {
+    //   this.loadedProducts = res;
+    //   console.log(res);
+    // });
+
+    this.productService
+      .findByCategoryIdPaginate(
+        this.categoryId,
+        this.thePageNumber - 1,
+        this.thePageSize
+      )
+      .subscribe((products) => {
+        this.loadedProducts = products._embedded.Product;
+        this.thePageNumber = products.page.number + 1;
+        this.thePageSize = products.page.size;
+        this.theTotalElements = products.page.totalElements;
+        console.log(this.loadedProducts);
+        console.log(this.thePageNumber);
+      });
   }
 
-  onDetails(index:number){
+  onDetails(index: number) {
     console.log(`Index: ${index}`);
-    
-    this.router.navigate(['products',index+1,'details']);
+    this.router.navigate(['products', index + 1, 'details']);
+  }
+
+  productListPaginated() {
+    this.productService
+      .getProductListPaginate(this.thePageNumber - 1, this.thePageSize)
+      .subscribe((products) => {
+        this.loadedProducts = products._embedded.Product;
+        this.thePageNumber = products.page.number + 1;
+        this.thePageSize = products.page.size;
+        this.theTotalElements = products.page.totalElements;
+        console.log(this.loadedProducts);
+        console.log(this.thePageNumber);
+      });
+  }
+
+  updateSize(size:string){
+    this.thePageSize=+size;
+    this.thePageNumber=1;
+    this.categoryId !== 1 &&
+    this.categoryId !== 2 &&
+    this.categoryId !== 3 &&
+    this.categoryId !== 4
+      ? this.productListPaginated()
+      : this.findByCategoryId()
   }
 }
-

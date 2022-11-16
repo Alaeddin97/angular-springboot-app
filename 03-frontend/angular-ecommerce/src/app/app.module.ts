@@ -8,6 +8,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { SearchComponent } from './components/search/search.component';
 import { FormsModule } from '@angular/forms';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 const appRoutes:Routes=[
@@ -28,6 +29,7 @@ const appRoutes:Routes=[
     ProductDetailsComponent
   ],
   imports: [
+    NgbModule,
     FormsModule,
     BrowserModule,
     HttpClientModule,

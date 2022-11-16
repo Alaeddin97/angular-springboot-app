@@ -2,16 +2,54 @@
   <div class="section-content section-content-p30">
     <div class="container-fluid">
       <div class="row" *ngIf="!noProductFound">
-        <div *ngFor="let product of loadedProducts;let index=index" class="col-md-3">
-          <div class="product-box" (click)="onDetails(index)">
-            <img src="{{product.imageUrl}}" class="img-responsive">
-            <h1>{{product.name}}</h1>
-            <div class="price">{{product.unitPrice | currency:'USD'}}</div>
+        <div
+          *ngFor="let product of loadedProducts; let index = index"
+          class="col-md-3"
+        >
+          <div
+            class="product-box"
+            (click)="onDetails(index)"
+            style="cursor: pointer"
+          >
+            <img src="{{ product.imageUrl }}" class="img-responsive" />
+            <h1>{{ product.name }}</h1>
+            <div class="price">{{ product.unitPrice | currency: "USD" }}</div>
             <a href="#" class="primary-btn">Add to cart</a>
           </div>
         </div>
       </div>
-      <div *ngIf="noProductFound" class="alert alert-warning">No product found</div>
+      <div *ngIf="noProductFound" class="alert alert-warning">
+        No product found
+      </div>
+      <div class="footer-pagination">
+        <div class="row">
+          <div class="col-md-11" style="padding-left: 30%;display:flex;justify-content: space-around;align-items: baseline;">
+            <ngb-pagination
+              [(page)]="thePageNumber"
+              [pageSize]="thePageSize"
+              [collectionSize]="theTotalElements"
+              [maxSize]="5"
+              [boundaryLinks]="true"
+              (pageChange)="
+                categoryId !== 1 &&
+                categoryId !== 2 &&
+                categoryId !== 3 &&
+                categoryId !== 4
+                  ? productListPaginated()
+                  : findByCategoryId()
+              "
+            ></ngb-pagination>
+            <span>Page size: 
+              <select #pageSize (change)="updateSize(pageSize.value)">
+                <option #optionOne [selected]="thePageSize===+optionOne.value">5</option>
+                <option #optionTwo [selected]="thePageSize===+optionTwo.value">10</option>
+                <option #optionThree [selected]="thePageSize===+optionThree.value">20</option>
+                <option #optionFour [selected]="thePageSize===+optionFour.value">50</option>
+              </select>
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
