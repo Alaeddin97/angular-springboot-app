@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { CartItem } from '../common/cart-item';
-import { Product } from '../common/product';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartService {
+
   totalPrice: Subject<number> = new Subject<number>();
   totalQuantity: Subject<number> = new Subject<number>();
   cartItems: CartItem[] = [];
@@ -38,15 +38,17 @@ export class CartService {
   }
 
   computeTotals() {
-    let totalQuentity: number = 0;
+    let totalQuantity: number = 0;
     let totalPrice: number = 0;
     for (let item of this.cartItems) {
       totalPrice += item.unitPrice * item.quantity;
-      totalQuentity += item.quantity;
-      console.log(`total quantity: ${totalQuentity}`);
+      totalQuantity += item.quantity;
     }
 
     this.totalPrice.next(totalPrice);
-    this.totalQuantity.next(totalQuentity);
+    this.totalQuantity.next(totalQuantity);
+
+    console.log(`Total quantity: ${totalQuantity}`);
+    
   }
 }
