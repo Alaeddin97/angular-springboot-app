@@ -12,7 +12,6 @@ export class CartDetailsComponent implements OnInit {
   totalQuantity: number = 0;
   totalPrice: number = 0;
 
-  options: number[] = [1, 2, 3, 4, 5, 6];
 
   constructor(private cartService: CartService) {}
 

@@ -1,0 +1,162 @@
+<div class="main-content page-m">
+  <div class="section-content section-content-p30 e-spc">
+    <div class="container-fluid">
+      <form [formGroup]="checkoutFormGroup" (ngSubmit)="onSubmit()">
+        <div class="form-area" formGroupName="customer">
+          <h3>Customer</h3>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="input-space">
+                <input
+                  type="text"
+                  placeholder="First Name"
+                  formControlName="firstName"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-space">
+                <input
+                  type="text"
+                  placeholder="Last Name"
+                  formControlName="lastName"
+                />
+              </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-md-6">
+              <div class="input-space">
+                <input
+                  type="text"
+                  placeholder="Email Address"
+                  formControlName="email"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--Form 2-->
+        <div class="form-area" formGroupName="address">
+          <h3>Shipping Address</h3>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="input-space">
+                <input
+                  type="text"
+                  placeholder="Street"
+                  formControlName="street"
+                />
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="input-space">
+                <input type="text" placeholder="City" formControlName="city" />
+              </div>
+            </div>
+
+            <div class="col-md-12">
+              <div class="input-space">
+                <select formControlName="state">
+                  <option>State / Province</option>
+                  <option></option>
+                  <option></option>
+                  <option></option>
+                  <option></option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="input-space">
+                <input
+                  type="text"
+                  placeholder="Zip Code / Postal Code"
+                  formControlName="code"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="input-space">
+          <label class="au-checkbox">
+            <input type="checkbox" checked="checked" />
+            <span class="au-checkmark"></span> Bill Address same as Shipping
+            Adress
+          </label>
+        </div>
+
+        <div class="form-area" formGroupName="creditCard">
+          <h3>Credit Card</h3>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="input-space">
+                <select formControlName="cardType">
+                  <option>Visa</option>
+                  <option></option>
+                  <option></option>
+                  <option></option>
+                  <option></option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="input-space">
+                <input
+                  type="text"
+                  placeholder="Name on card"
+                  formControlName="nameOnCard"
+                />
+              </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-md-8">
+              <div class="input-space">
+                <input
+                  type="text"
+                  placeholder="Card number"
+                  formControlName="cardNumber"
+                />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="input-space">
+                <input
+                  type="text"
+                  placeholder="CVV2 number"
+                  formControlName="cvvNumber"
+                />
+              </div>
+            </div>
+            <div class="clearfix"></div>
+
+              <label class="date">Expiration Date</label>
+              <div class="col-md-7">
+                <div class="input-space">
+                  <select formControlName="month">
+                    <option *ngFor="let month of expirationMonths">{{month}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-7">
+                <div class="input-space">
+                  <select formControlName="year" (change)="handleMonthYearSelection()">
+                    <option *ngFor="let year of expirationYears">{{year}}</option>
+                  </select>
+                </div>
+              </div>
+          </div>
+        </div>
+
+        <div class="form-area">
+          <h3>Review Your Order</h3>
+          <b>Total Quantity: {{totalQuantity}}</b>
+          <h4>Shipping: FREE</h4>
+          <B>Total Price: {{totalPrice | currency:'USD'}}</B>
+        </div>
+        <div class="text-center">
+          <button class="btn btn-info" type="submit">Purchase</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
