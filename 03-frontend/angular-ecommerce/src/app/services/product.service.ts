@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 import { map, Observable, Subject } from 'rxjs';
 import { Product } from '../common/product';
-import { ProductCategory } from '../common/ProductCategory';
+import { ProductCategory } from '../common/productCategory';
 
 @Injectable({
   providedIn: 'root',

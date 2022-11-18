@@ -50,18 +50,16 @@
             </div>
             <div class="col-md-12">
               <div class="input-space">
-                <input type="text" placeholder="City" formControlName="city" />
+                <select formControlName="city" (change)="getStates()">
+                  <option *ngFor="let country of countries"  [ngValue]="country">{{country.name}}</option>
+                </select>
               </div>
             </div>
 
             <div class="col-md-12">
               <div class="input-space">
                 <select formControlName="state">
-                  <option>State / Province</option>
-                  <option></option>
-                  <option></option>
-                  <option></option>
-                  <option></option>
+                  <option *ngFor="let state of states" [ngValue]="state">{{state.name}}</option>
                 </select>
               </div>
             </div>

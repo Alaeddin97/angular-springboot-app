@@ -1,4 +1,4 @@
-import { ProductCategory } from './ProductCategory';
+import { ProductCategory } from './productCategory';
 
 export class Product {
   constructor(
