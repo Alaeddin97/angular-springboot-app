@@ -1,35 +1,42 @@
 package com.luv2code.ecommerce.entity;
 
-import lombok.Data;
-import org.hibernate.mapping.Join;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "address")
-@Data
+@Table(name="address")
+@Getter
+@Setter
 public class Address {
-    @Column(name = "id")
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
     private Long id;
 
-    @Column(name = "street")
+    @Column(name="street")
     private String street;
 
-    @Column(name = "city")
+    @Column(name="city")
     private String city;
 
-    @Column(name = "zip_code")
-    private String zipCode;
+    @Column(name="state")
+    private String state;
 
-    @Column(name = "country")
+    @Column(name="country")
     private String country;
 
-    @Column(name = "state")
-    private String state;
+    @Column(name="zip_code")
+    private String zipCode;
 
     @OneToOne
     @PrimaryKeyJoinColumn
     private Order order;
 }
+
+
+
+
+

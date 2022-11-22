@@ -1,3 +1,4 @@
 https://ng-bootstrap.github.io/: angular bootstrap
 https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html#appendix.application-properties: all spring 
 boot properties avaible to customize
+https://fr.wikipedia.org/wiki/Universally_unique_identifier: UUID 
