@@ -20,8 +20,6 @@ public class MyDataRestConfig implements RepositoryRestConfigurer{
         configMethod(ProductCategory.class,config, notAllowedActions);
         configMethod(Country.class,config, notAllowedActions);
         configMethod(State.class,config, notAllowedActions);
-
-
     }
 
     private static void configMethod(Class theClass, RepositoryRestConfiguration config, HttpMethod[] notAllowedActions) {
