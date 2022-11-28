@@ -3,14 +3,14 @@
     <div class="container-fluid">
       <div class="row" *ngIf="!noProductFound">
         <div
-          *ngFor="let product of loadedProducts; let index = index"
+          *ngFor="let product of loadedProducts"
           class="col-md-3"
         >
           <div
             class="product-box"
             style="cursor: pointer"
           >
-            <img src="{{ product.imageUrl }}" class="img-responsive"  (click)="onDetails(index)" />
+            <img src="{{ product.imageUrl }}" class="img-responsive"  (click)="onDetails(product.id)" />
             <h1>{{ product.name }}</h1>
             <div class="price">{{ product.unitPrice | currency: "USD" }}</div>
             <a (click)="addItem(product)" class="primary-btn">Add to cart</a>

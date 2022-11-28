@@ -73,9 +73,8 @@ export class ProductListComponent implements OnInit {
       });
   }
 
-  onDetails(index: number) {
-    console.log(`Index: ${index}`);
-    this.router.navigate(['products', index + 1, 'details']);
+  onDetails(id: number) {
+    this.router.navigate(['products', id, 'details']);
   }
 
   productListPaginate() {

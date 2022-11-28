@@ -74,7 +74,7 @@
                 <input
                   type="text"
                   placeholder="Street"
-                  formControlName="shippingStreet"
+                  formControlName="street"
                 />
               </div>
             </div>
@@ -95,7 +95,7 @@
                 <input
                 type="text"
                 placeholder="City"
-                formControlName="shippingCity"
+                formControlName="city"
               />
               </div>
             </div>
@@ -113,7 +113,7 @@
 
             <div class="col-md-12">
               <div class="input-space">
-                <select formControlName="shippingCountry" (change)="getShippingStates()">
+                <select formControlName="country" (change)="getShippingStates()">
                   <option *ngFor="let shippingCountry of shippingCountries"  [ngValue]="shippingCountry">{{shippingCountry.name}}</option>
                 </select>
               </div>
@@ -128,7 +128,7 @@
 
             <div class="col-md-12">
               <div class="input-space">
-                <select formControlName="shippingState">
+                <select formControlName="state">
                   <option *ngFor="let shippingState of shippingStates" [ngValue]="shippingState">{{shippingState.name}}</option>
                 </select>
               </div>
@@ -146,7 +146,7 @@
                 <input
                   type="text"
                   placeholder="Zip code / Postal code"
-                  formControlName="shippingCode"
+                  formControlName="zipCode"
                 />
               </div>
             </div>
@@ -173,7 +173,7 @@
                 <input
                   type="text"
                   placeholder="Street"
-                  formControlName="billingStreet"
+                  formControlName="street"
                 />
               </div>
             </div>
@@ -194,7 +194,7 @@
                 <input
                 type="text"
                 placeholder="City"
-                formControlName="billingCity"
+                formControlName="city"
               />
               </div>
             </div>
@@ -212,7 +212,7 @@
 
             <div class="col-md-12">
               <div class="input-space">
-                <select formControlName="billingCountry" (change)="getBillingStates()">
+                <select formControlName="country" (change)="getBillingStates()">
                   <option *ngFor="let billingCountry of billingCountries"  [ngValue]="billingCountry">{{billingCountry.name}}</option>
                 </select>
               </div>
@@ -227,7 +227,7 @@
 
             <div class="col-md-12">
               <div class="input-space">
-                <select formControlName="billingState">
+                <select formControlName="state">
                   <option *ngFor="let billingState of billingStates" [ngValue]="billingState">{{billingState.name}}</option>
                 </select>
               </div>
@@ -245,7 +245,7 @@
                 <input
                   type="text"
                   placeholder="Zip code / Postal code"
-                  formControlName="billingCode"
+                  formControlName="zipCode"
                 />
               </div>
             </div>
